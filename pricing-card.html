@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Basic Plan — Pricing Card</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── Reset ── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ── Body ── */
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #06060f;
+      font-family: 'DM Sans', sans-serif;
+      padding: 2rem 1rem;
+    }
+
+    /* ════════════════════════════
+       PRICING CARD
+    ════════════════════════════ */
+    .card {
+      position: relative;
+      width: min(360px, 100%);
+      background: #0d0d1a;
+      border: 1px solid rgba(139, 92, 246, 0.18);
+      border-radius: 28px;
+      padding: 2.5rem 2rem;
+      overflow: hidden;
+      animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .glow-top {
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 260px; height: 260px;
+      background: radial-gradient(circle, rgba(139,92,246,0.32) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .glow-bottom {
+      position: absolute;
+      bottom: -60px; left: -60px;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(56,189,248,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(139,92,246,0.12);
+      border: 1px solid rgba(139,92,246,0.38);
+      color: #c4b5fd;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      padding: 5px 13px;
+      border-radius: 100px;
+      margin-bottom: 1.6rem;
+      animation: fadeUp 0.6s 0.1s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    .badge-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #a78bfa;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; }
+      50%      { opacity: 0.35; }
+    }
+
+    .plan-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 34px;
+      color: #f0eeff;
+      line-height: 1;
+      margin-bottom: 6px;
+      animation: fadeUp 0.6s 0.15s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    .plan-desc {
+      font-size: 13px;
+      color: #6b7280;
+      margin-bottom: 2rem;
+      animation: fadeUp 0.6s 0.2s cubic-bezier(0.22,1,0.36,1) both;
+    }
+
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      margin-bottom: 2rem;
+      animation: fadeUp 0.6s 0.25s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    .price-currency {
+      font-size: 22px; font-weight: 300;
+      color: #a78bfa;
+      align-self: flex-start; margin-top: 10px;
+    }
+    .price-amount {
+      font-family: 'DM Serif Display', serif;
+      font-size: 62px; color: #f0eeff; line-height: 1;
+    }
+    .price-period {
+      font-size: 13px; color: #4b5563;
+      align-self: flex-end; margin-bottom: 6px; line-height: 1.4;
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, rgba(139,92,246,0.45), transparent);
+      margin-bottom: 1.6rem;
+      animation: fadeUp 0.6s 0.3s cubic-bezier(0.22,1,0.36,1) both;
+    }
+
+    .features { list-style: none; margin-bottom: 2rem; }
+    .features li {
+      display: flex; align-items: center; gap: 11px;
+      padding: 10px 0; font-size: 14px; color: #d1d5db;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      animation: fadeUp 0.5s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    .features li:last-child { border-bottom: none; }
+    .features li:nth-child(1) { animation-delay: 0.33s; }
+    .features li:nth-child(2) { animation-delay: 0.38s; }
+    .features li:nth-child(3) { animation-delay: 0.43s; }
+
+    .check-icon {
+      flex-shrink: 0; width: 20px; height: 20px;
+      border-radius: 50%; background: rgba(139,92,246,0.18);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .check-icon svg { width: 11px; height: 11px; }
+
+    /* CTA Button */
+    .btn {
+      width: 100%; padding: 15px;
+      border-radius: 14px; border: none; cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px; font-weight: 500; letter-spacing: 0.01em;
+      color: #fff;
+      background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
+      position: relative; overflow: hidden;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      animation: fadeUp 0.6s 0.5s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    .btn::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.13), transparent);
+      opacity: 0; transition: opacity 0.2s ease;
+    }
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 35px rgba(124,58,237,0.5); }
+    .btn:hover::before { opacity: 1; }
+    .btn:active { transform: translateY(-1px); }
+
+    /* Ripple */
+    .ripple {
+      position: absolute; border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      transform: scale(0);
+      animation: rippleAnim 0.55s linear;
+      pointer-events: none;
+    }
+    @keyframes rippleAnim {
+      to { transform: scale(4); opacity: 0; }
+    }
+
+    .footer-note {
+      text-align: center; font-size: 12px; color: #374151;
+      margin-top: 13px;
+      animation: fadeUp 0.6s 0.55s cubic-bezier(0.22,1,0.36,1) both;
+    }
+
+    /* ════════════════════════════
+       MODAL OVERLAY
+    ════════════════════════════ */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.72);
+      backdrop-filter: blur(7px);
+      -webkit-backdrop-filter: blur(7px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1rem;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+      z-index: 100;
+    }
+    .modal-overlay.open {
+      opacity: 1; visibility: visible;
+    }
+
+    .modal {
+      position: relative;
+      width: min(440px, 100%);
+      background: #0d0d1a;
+      border: 1px solid rgba(139,92,246,0.22);
+      border-radius: 24px;
+      padding: 2.5rem 2rem;
+      transform: translateY(20px) scale(0.97);
+      transition: transform 0.32s cubic-bezier(0.22,1,0.36,1);
+      overflow: hidden;
+    }
+    .modal-overlay.open .modal {
+      transform: translateY(0) scale(1);
+    }
+    .modal::before {
+      content: '';
+      position: absolute; top: -60px; right: -60px;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(139,92,246,0.28) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Close button */
+    .modal-close {
+      position: absolute; top: 1.2rem; right: 1.2rem;
+      width: 32px; height: 32px; border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #9ca3af; font-size: 16px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s, color 0.15s;
+      line-height: 1;
+    }
+    .modal-close:hover { background: rgba(255,255,255,0.12); color: #f0eeff; }
+
+    /* Modal header */
+    .modal-header { margin-bottom: 1.8rem; }
+    .modal-tag {
+      display: inline-block;
+      background: rgba(139,92,246,0.15);
+      color: #a78bfa; font-size: 11px; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 3px 10px; border-radius: 100px; margin-bottom: 0.8rem;
+    }
+    .modal-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 26px; color: #f0eeff; line-height: 1.2; margin-bottom: 6px;
+    }
+    .modal-subtitle { font-size: 13px; color: #6b7280; }
+
+    /* Summary box */
+    .modal-summary {
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(139,92,246,0.08);
+      border: 1px solid rgba(139,92,246,0.2);
+      border-radius: 12px; padding: 12px 16px; margin-bottom: 1.8rem;
+    }
+    .modal-summary-label { font-size: 13px; color: #9ca3af; }
+    .modal-summary-price { font-family: 'DM Serif Display', serif; font-size: 22px; color: #a78bfa; }
+    .modal-summary-period { font-size: 12px; color: #4b5563; }
+
+    /* Form */
+    .form-group { margin-bottom: 1.1rem; }
+    .form-label {
+      display: block; font-size: 11px; font-weight: 500;
+      color: #9ca3af; letter-spacing: 0.06em; text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .form-input {
+      width: 100%; padding: 12px 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px; color: #f0eeff;
+      font-family: 'DM Sans', sans-serif; font-size: 14px;
+      outline: none; transition: border-color 0.2s, background 0.2s;
+    }
+    .form-input::placeholder { color: #374151; }
+    .form-input:focus {
+      border-color: rgba(139,92,246,0.6);
+      background: rgba(139,92,246,0.06);
+    }
+    .form-input.has-error {
+      border-color: rgba(248,113,113,0.55);
+    }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 400px) { .form-row { grid-template-columns: 1fr; } }
+
+    .form-error {
+      font-size: 11px; color: #f87171;
+      margin-top: 4px; display: none;
+    }
+
+    /* Submit button */
+    .btn-submit {
+      width: 100%; padding: 14px;
+      border-radius: 12px; border: none; cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px; font-weight: 500;
+      color: #fff;
+      background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
+      position: relative; overflow: hidden;
+      transition: transform 0.15s, box-shadow 0.15s;
+      margin-top: 0.4rem;
+    }
+    .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(124,58,237,0.5); }
+    .btn-submit:active { transform: translateY(0); }
+    .btn-submit:disabled { opacity: 0.55; cursor: not-allowed; transform: none; box-shadow: none; }
+
+    .spinner {
+      display: inline-block; width: 14px; height: 14px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff; border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle; margin-right: 6px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Success screen */
+    .success-screen {
+      display: none; text-align: center; padding: 1.5rem 0;
+    }
+    .success-icon {
+      width: 68px; height: 68px; border-radius: 50%;
+      background: rgba(52,211,153,0.12);
+      border: 1px solid rgba(52,211,153,0.3);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.4rem;
+      animation: scaleIn 0.4s cubic-bezier(0.22,1,0.36,1);
+    }
+    @keyframes scaleIn {
+      from { transform: scale(0.5); opacity: 0; }
+      to   { transform: scale(1);   opacity: 1; }
+    }
+    .success-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 26px; color: #f0eeff; margin-bottom: 10px;
+    }
+    .success-text { font-size: 14px; color: #6b7280; line-height: 1.7; }
+    .success-email {
+      display: inline-block; margin-top: 12px;
+      background: rgba(139,92,246,0.12);
+      border: 1px solid rgba(139,92,246,0.25);
+      color: #c4b5fd; font-size: 13px;
+      padding: 6px 14px; border-radius: 100px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════
+       PRICING CARD
+  ══════════════════════════════ -->
+  <div class="card">
+    <div class="glow-top"></div>
+    <div class="glow-bottom"></div>
+
+    <div class="badge">
+      <span class="badge-dot"></span>
+      Populaire
+    </div>
+
+    <h2 class="plan-name">Basic Plan</h2>
+    <p class="plan-desc">Tout ce qu'il faut pour démarrer.</p>
+
+    <div class="price-row">
+      <span class="price-currency">$</span>
+      <span class="price-amount">9</span>
+      <span class="price-period">.99<br>/mois</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <ul class="features">
+      <li>
+        <span class="check-icon">
+          <svg viewBox="0 0 11 11" fill="none">
+            <polyline points="2,5.5 4.5,8 9,3" stroke="#a78bfa" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        1 Go de stockage
+      </li>
+      <li>
+        <span class="check-icon">
+          <svg viewBox="0 0 11 11" fill="none">
+            <polyline points="2,5.5 4.5,8 9,3" stroke="#a78bfa" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        Support de base
+      </li>
+      <li>
+        <span class="check-icon">
+          <svg viewBox="0 0 11 11" fill="none">
+            <polyline points="2,5.5 4.5,8 9,3" stroke="#a78bfa" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        Toutes les fonctionnalités principales
+      </li>
+    </ul>
+
+    <button class="btn" id="openModal">Démarrer l'essai gratuit →</button>
+    <p class="footer-note">Aucune carte bancaire requise · Annulable à tout moment</p>
+  </div>
+
+  <!-- ══════════════════════════════
+       MODAL
+  ══════════════════════════════ -->
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal" id="modal">
+
+      <button class="modal-close" id="closeModal" aria-label="Fermer">&#x2715;</button>
+
+      <!-- ── Form screen ── -->
+      <div id="formScreen">
+        <div class="modal-header">
+          <span class="modal-tag">Essai gratuit — 14 jours</span>
+          <h3 class="modal-title" id="modalTitle">Créer votre compte</h3>
+          <p class="modal-subtitle">Aucune carte bancaire requise. Annulable à tout moment.</p>
+        </div>
+
+        <div class="modal-summary">
+          <span class="modal-summary-label">Basic Plan</span>
+          <span>
+            <span class="modal-summary-price">$9.99</span>
+            <span class="modal-summary-period"> /mois</span>
+          </span>
+        </div>
+
+        <form id="signupForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="firstName">Prénom</label>
+              <input class="form-input" type="text" id="firstName" placeholder="Jean" autocomplete="given-name" />
+              <span class="form-error" id="firstNameErr">Champ requis</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="lastName">Nom</label>
+              <input class="form-input" type="text" id="lastName" placeholder="Dupont" autocomplete="family-name" />
+              <span class="form-error" id="lastNameErr">Champ requis</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="email">Adresse e-mail</label>
+            <input class="form-input" type="email" id="email" placeholder="jean@exemple.com" autocomplete="email" />
+            <span class="form-error" id="emailErr">Adresse e-mail invalide</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="password">Mot de passe</label>
+            <input class="form-input" type="password" id="password" placeholder="8 caractères minimum" autocomplete="new-password" />
+            <span class="form-error" id="passwordErr">8 caractères minimum requis</span>
+          </div>
+
+          <button type="submit" class="btn-submit" id="submitBtn">
+            Démarrer mon essai gratuit →
+          </button>
+        </form>
+      </div>
+
+      <!-- ── Success screen ── -->
+      <div class="success-screen" id="successScreen">
+        <div class="success-icon">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+            <polyline points="6,15 12,21 24,9" stroke="#34d399" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 class="success-title">Bienvenue !</h3>
+        <p class="success-text">
+          Votre essai gratuit de 14 jours est activé.<br>
+          Un e-mail de confirmation a été envoyé à :
+        </p>
+        <span class="success-email" id="confirmedEmail"></span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       JAVASCRIPT
+  ══════════════════════════════ -->
+  <script>
+    const openBtn    = document.getElementById('openModal');
+    const overlay    = document.getElementById('modalOverlay');
+    const closeBtn   = document.getElementById('closeModal');
+    const form       = document.getElementById('signupForm');
+    const submitBtn  = document.getElementById('submitBtn');
+    const formScreen = document.getElementById('formScreen');
+    const successScr = document.getElementById('successScreen');
+    const confirmedEmail = document.getElementById('confirmedEmail');
+
+    /* ─────────────────────────
+       Ripple helper
+    ───────────────────────── */
+    function createRipple(e, el) {
+      const rect   = el.getBoundingClientRect();
+      const size   = Math.max(rect.width, rect.height);
+      const x      = e.clientX - rect.left  - size / 2;
+      const y      = e.clientY - rect.top   - size / 2;
+      const ripple = document.createElement('span');
+      ripple.className = 'ripple';
+      ripple.style.cssText = `width:${size}px;height:${size}px;left:${x}px;top:${y}px`;
+      el.appendChild(ripple);
+      ripple.addEventListener('animationend', () => ripple.remove());
+    }
+
+    /* ─────────────────────────
+       Open / Close modal
+    ───────────────────────── */
+    function openModal()  { overlay.classList.add('open');    }
+    function closeModal() { overlay.classList.remove('open'); }
+
+    openBtn.addEventListener('click', (e) => {
+      createRipple(e, openBtn);
+      setTimeout(openModal, 120);
+    });
+
+    closeBtn.addEventListener('click', closeModal);
+
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closeModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    /* ─────────────────────────
+       Validation
+    ───────────────────────── */
+    const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    function setFieldError(inputId, errId, hasError) {
+      const input = document.getElementById(inputId);
+      const err   = document.getElementById(errId);
+      input.classList.toggle('has-error', hasError);
+      err.style.display = hasError ? 'block' : 'none';
+      return !hasError;
+    }
+
+    function validateAll() {
+      const fn  = document.getElementById('firstName').value.trim();
+      const ln  = document.getElementById('lastName').value.trim();
+      const em  = document.getElementById('email').value.trim();
+      const pw  = document.getElementById('password').value;
+      let ok = true;
+      ok = setFieldError('firstName', 'firstNameErr', fn === '')              && ok;
+      ok = setFieldError('lastName',  'lastNameErr',  ln === '')              && ok;
+      ok = setFieldError('email',     'emailErr',     !EMAIL_RE.test(em))     && ok;
+      ok = setFieldError('password',  'passwordErr',  pw.length < 8)          && ok;
+      return ok;
+    }
+
+    /* Clear error on user input */
+    ['firstName','lastName','email','password'].forEach(id => {
+      const errMap = {
+        firstName: 'firstNameErr',
+        lastName:  'lastNameErr',
+        email:     'emailErr',
+        password:  'passwordErr'
+      };
+      document.getElementById(id).addEventListener('input', () => {
+        document.getElementById(id).classList.remove('has-error');
+        document.getElementById(errMap[id]).style.display = 'none';
+      });
+    });
+
+    /* ─────────────────────────
+       Form submit
+    ───────────────────────── */
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!validateAll()) return;
+
+      const emailVal = document.getElementById('email').value.trim();
+
+      /* Loading state */
+      submitBtn.disabled     = true;
+      submitBtn.innerHTML    = '<span class="spinner"></span>Création du compte…';
+
+      /* Simulate network (1.8 s) */
+      setTimeout(() => {
+        confirmedEmail.textContent = emailVal;
+        formScreen.style.display   = 'none';
+        successScr.style.display   = 'block';
+
+        /* Auto-close after 4 s and reset */
+        setTimeout(() => {
+          closeModal();
+          setTimeout(() => {
+            formScreen.style.display = 'block';
+            successScr.style.display = 'none';
+            submitBtn.disabled       = false;
+            submitBtn.innerHTML      = 'Démarrer mon essai gratuit →';
+            form.reset();
+          }, 350);
+        }, 4000);
+      }, 1800);
+    });
+  </script>
+</body>
+</html>
